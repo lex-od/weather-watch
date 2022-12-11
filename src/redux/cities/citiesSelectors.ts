@@ -1,8 +1,43 @@
+import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "redux/store";
+import weatherSelectors from "redux/weather/weatherSelectors";
+import { IGetCurrentWeatherResponse } from "services/api/types";
+import { ICityItem, ICityWithWeatherItem } from "./citiesTypes";
 
-const getCitiesList = (state: RootState) => state.cities.selectedIds;
+const getSelectedCities = (state: RootState) => state.cities.selectedCities;
+
+const getSelectedCitiesWithWeather = createSelector(
+  [getSelectedCities, weatherSelectors.getWeatherByCities],
+  (
+    selectedCities: ICityItem[],
+    weatherByCities: IGetCurrentWeatherResponse[]
+  ): ICityWithWeatherItem[] => {
+    return selectedCities.map((city) => {
+      const weather = weatherByCities.find(({ id }) => id === city.id);
+      return {
+        ...city,
+        weather: weather || null,
+      };
+    });
+  }
+);
+
+const getSelectedCityIdsWithNoWeather = createSelector(
+  [getSelectedCities, weatherSelectors.getWeatherByCities],
+  (
+    selectedCities: ICityItem[],
+    weatherByCities: IGetCurrentWeatherResponse[]
+  ): number[] => {
+    const noWeatherCities = selectedCities.filter((city) => {
+      return weatherByCities.every(({ id }) => id !== city.id);
+    });
+    return noWeatherCities.map(({ id }) => id);
+  }
+);
 
 const citiesSelectors = {
-  getCitiesList,
+  getSelectedCities,
+  getSelectedCitiesWithWeather,
+  getSelectedCityIdsWithNoWeather,
 };
 export default citiesSelectors;

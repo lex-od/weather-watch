@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IWeatherState } from "./weatherTypes";
 import weatherThunks from "./weatherThunks";
+import { IGetCurrentWeatherResponse } from "services/api/types";
 
 const initialState: IWeatherState = {
-  list: [],
+  weatherByCities: [],
+  weatherAllLoading: false,
 };
 
 export const weatherSlice = createSlice({
@@ -13,12 +15,35 @@ export const weatherSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       weatherThunks.getCurrentWeather.fulfilled,
+      (state, { payload }) => updateWeatherItem(state, payload)
+    );
+
+    builder.addCase(
+      weatherThunks.getCurrentWeatherBySelectedCities.pending,
+      (state) => {
+        state.weatherAllLoading = true;
+      }
+    );
+    builder.addCase(
+      weatherThunks.getCurrentWeatherBySelectedCities.fulfilled,
       (state, { payload }) => {
-        state.list = state.list.filter(({ id }) => id !== payload.id);
-        state.list.push(payload);
+        payload.forEach((weatherItem) => updateWeatherItem(state, weatherItem));
+        state.weatherAllLoading = false;
       }
     );
   },
 });
+
+// Helpers
+
+const updateWeatherItem = (
+  state: IWeatherState,
+  item: IGetCurrentWeatherResponse
+) => {
+  state.weatherByCities = state.weatherByCities.filter(
+    ({ id }) => id !== item.id
+  );
+  state.weatherByCities.push(item);
+};
 
 export default weatherSlice.reducer;

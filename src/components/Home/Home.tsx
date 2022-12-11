@@ -7,7 +7,9 @@ export const Home = () => {
 
   return (
     <div
-      onClick={() => dispatch(weatherThunks.getCurrentWeather({ id: 698740 }))}
+      onClick={() => {
+        dispatch(weatherThunks.getCurrentWeatherBySelectedCities());
+      }}
     >
       Home
     </div>

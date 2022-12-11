@@ -16,7 +16,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whiteList: ["cities"],
+  whitelist: ["cities"],
 };
 
 export const store = configureStore({

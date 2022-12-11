@@ -1,15 +1,34 @@
+import { IGetCurrentWeatherResponse } from "services/api/types";
+
 export interface ICitiesState {
-  selectedIds: number[];
+  selectedCities: ICityItem[];
+}
+
+export interface ICityItem {
+  id: number;
+  name: string;
+  state: string;
+  country: string;
+  coord: {
+    lon: number;
+    lat: number;
+  };
+}
+
+// City with weather
+
+export interface ICityWithWeatherItem extends ICityItem {
+  weather: IGetCurrentWeatherResponse | null;
 }
 
 // Add new city
 
-export interface IAddNewCityPayload {
-  newId: number;
+export interface IAddCityPayload {
+  newCity: ICityItem;
 }
 
 // Delete city
 
 export interface IDeleteCityPayload {
-  delId: number;
+  cityId: number;
 }

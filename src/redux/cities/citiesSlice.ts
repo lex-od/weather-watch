@@ -1,30 +1,35 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import {
-  IAddNewCityPayload,
+  IAddCityPayload,
   ICitiesState,
   IDeleteCityPayload,
 } from "./citiesTypes";
 
 const initialState: ICitiesState = {
-  selectedIds: [],
+  selectedCities: [],
 };
 
 export const citiesSlice = createSlice({
   name: "cities",
   initialState,
   reducers: {
-    addNewCity: (state, action: PayloadAction<IAddNewCityPayload>) => {
-      const { newId } = action.payload;
-      if (state.selectedIds.includes(newId)) {
-        return;
-      }
-      state.selectedIds = [newId, ...state.selectedIds];
+    addNewCity: (state, action: PayloadAction<IAddCityPayload>) => {
+      const { newCity } = action.payload;
+
+      const isExists = state.selectedCities.some(({ id }) => id === newCity.id);
+
+      if (isExists) return;
+
+      state.selectedCities = [newCity, ...state.selectedCities];
     },
 
     deleteCity: (state, action: PayloadAction<IDeleteCityPayload>) => {
-      const { delId } = action.payload;
-      state.selectedIds = state.selectedIds.filter((id) => id !== delId);
+      const { cityId } = action.payload;
+
+      state.selectedCities = state.selectedCities.filter(
+        ({ id }) => id !== cityId
+      );
     },
   },
 });
