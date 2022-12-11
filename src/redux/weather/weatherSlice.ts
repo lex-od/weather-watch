@@ -13,8 +13,9 @@ export const weatherSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       weatherThunks.getCurrentWeather.fulfilled,
-      (state, action) => {
-        //
+      (state, { payload }) => {
+        state.list = state.list.filter(({ id }) => id !== payload.id);
+        state.list.push(payload);
       }
     );
   },

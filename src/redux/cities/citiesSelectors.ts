@@ -1,6 +1,6 @@
 import { RootState } from "redux/store";
 
-const getCitiesList = (state: RootState) => state.cities.list;
+const getCitiesList = (state: RootState) => state.cities.selectedIds;
 
 const citiesSelectors = {
   getCitiesList,

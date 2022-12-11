@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import {
   persistStore,
   persistReducer,
@@ -10,7 +10,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import citiesReducer from "redux/cities/citiesSlice";
+import { rootReducer } from "./rootReducer";
 
 const persistConfig = {
   key: "root",
@@ -18,10 +18,6 @@ const persistConfig = {
   storage,
   whiteList: ["cities"],
 };
-
-const rootReducer = combineReducers({
-  cities: citiesReducer,
-});
 
 export const store = configureStore({
   reducer: persistReducer(persistConfig, rootReducer),

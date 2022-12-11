@@ -1,3 +1,15 @@
 export interface ICitiesState {
-  list: null;
+  selectedIds: number[];
+}
+
+// Add new city
+
+export interface IAddNewCityPayload {
+  newId: number;
+}
+
+// Delete city
+
+export interface IDeleteCityPayload {
+  delId: number;
 }
