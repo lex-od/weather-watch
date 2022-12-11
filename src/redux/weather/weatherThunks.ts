@@ -6,12 +6,18 @@ import {
   IGetCurrentWeatherResponse,
 } from "services/api/types";
 import citiesSelectors from "redux/cities/citiesSelectors";
+import { showError } from "utils/notify";
 
 const getCurrentWeather = createAsyncThunk(
   "weather/getCurrentWeather",
   async (payload: IGetCurrentWeatherParams) => {
-    const { data } = await api.getCurrentWeather(payload);
-    return data;
+    try {
+      const { data } = await api.getCurrentWeather(payload);
+      return data;
+    } catch (error) {
+      showError(error);
+      throw error;
+    }
   }
 );
 

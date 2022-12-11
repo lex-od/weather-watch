@@ -1,6 +1,6 @@
 import css from "./Home.module.scss";
-import weatherThunks from "redux/weather/weatherThunks";
 import { useAppDispatch } from "hooks";
+import weatherThunks from "redux/weather/weatherThunks";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -8,7 +8,7 @@ export const Home = () => {
   return (
     <div
       onClick={() => {
-        dispatch(weatherThunks.getCurrentWeatherBySelectedCities());
+        dispatch(weatherThunks.getCurrentWeather({ id: 698740 }));
       }}
     >
       Home
