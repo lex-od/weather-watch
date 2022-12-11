@@ -1,0 +1,122 @@
+[
+  {
+    "id": 710791,
+    "name": "Cherkasy",
+    "state": "",
+    "country": "UA",
+    "coord": {
+      "lon": 32.062069,
+      "lat": 49.428539
+    }
+  },
+  {
+    "id": 709930,
+    "name": "Dnipro",
+    "state": "",
+    "country": "UA",
+    "coord": {
+      "lon": 34.98333,
+      "lat": 48.450001
+    }
+  },
+  {
+    "id": 706483,
+    "name": "Kharkiv",
+    "state": "",
+    "country": "UA",
+    "coord": {
+      "lon": 36.25,
+      "lat": 50.0
+    }
+  },
+  {
+    "id": 706448,
+    "name": "Kherson",
+    "state": "",
+    "country": "UA",
+    "coord": {
+      "lon": 32.617802,
+      "lat": 46.655811
+    }
+  },
+  {
+    "id": 703447,
+    "name": "Kyiv",
+    "state": "",
+    "country": "UA",
+    "coord": {
+      "lon": 30.516666,
+      "lat": 50.433334
+    }
+  },
+  {
+    "id": 702550,
+    "name": "Lviv",
+    "state": "",
+    "country": "UA",
+    "coord": {
+      "lon": 24.023239,
+      "lat": 49.838261
+    }
+  },
+  {
+    "id": 700568,
+    "name": "Mykolaiv",
+    "state": "",
+    "country": "UA",
+    "coord": {
+      "lon": 23.98522,
+      "lat": 49.52372
+    }
+  },
+  {
+    "id": 698740,
+    "name": "Odessa",
+    "state": "",
+    "country": "UA",
+    "coord": {
+      "lon": 30.732622,
+      "lat": 46.477474
+    }
+  },
+  {
+    "id": 696643,
+    "name": "Poltava",
+    "state": "",
+    "country": "UA",
+    "coord": {
+      "lon": 34.54073,
+      "lat": 49.593731
+    }
+  },
+  {
+    "id": 692194,
+    "name": "Sumy",
+    "state": "",
+    "country": "UA",
+    "coord": {
+      "lon": 34.800289,
+      "lat": 50.9216
+    }
+  },
+  {
+    "id": 690688,
+    "name": "Uman",
+    "state": "",
+    "country": "UA",
+    "coord": {
+      "lon": 30.22184,
+      "lat": 48.748379
+    }
+  },
+  {
+    "id": 689558,
+    "name": "Vinnytsia",
+    "state": "",
+    "country": "UA",
+    "coord": {
+      "lon": 28.48097,
+      "lat": 49.23278
+    }
+  }
+]
