@@ -31,6 +31,12 @@ export const weatherSlice = createSlice({
         state.weatherAllLoading = false;
       }
     );
+    builder.addCase(
+      weatherThunks.getCurrentWeatherBySelectedCities.rejected,
+      (state) => {
+        state.weatherAllLoading = false;
+      }
+    );
   },
 });
 
