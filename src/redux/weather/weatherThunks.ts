@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "services";
 import { IGetCurrentWeatherParams } from "services/api/types";
 import citiesSelectors from "redux/cities/citiesSelectors";
-import { showError } from "utils/notify";
+import { showError } from "utils";
 
 const getCurrentWeather = createAsyncThunk(
   "weather/getCurrentWeather",

@@ -7,7 +7,58 @@ import {
 } from "./citiesTypes";
 
 const initialState: ICitiesState = {
-  selectedCities: [],
+  selectedCities: [
+    {
+      id: 698740,
+      name: "Odessa",
+      state: "",
+      country: "UA",
+      coord: {
+        lon: 30.732622,
+        lat: 46.477474,
+      },
+    },
+    {
+      id: 696643,
+      name: "Poltava",
+      state: "",
+      country: "UA",
+      coord: {
+        lon: 34.54073,
+        lat: 49.593731,
+      },
+    },
+    {
+      id: 692194,
+      name: "Sumy",
+      state: "",
+      country: "UA",
+      coord: {
+        lon: 34.800289,
+        lat: 50.9216,
+      },
+    },
+    {
+      id: 690688,
+      name: "Uman",
+      state: "",
+      country: "UA",
+      coord: {
+        lon: 30.22184,
+        lat: 48.748379,
+      },
+    },
+    {
+      id: 689558,
+      name: "Vinnytsia",
+      state: "",
+      country: "UA",
+      coord: {
+        lon: 28.48097,
+        lat: 49.23278,
+      },
+    },
+  ],
 };
 
 export const citiesSlice = createSlice({

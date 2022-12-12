@@ -8,6 +8,6 @@ const openWeatherKey = "eebd5a23845db2a10390b3af64e7af23";
 export const api: IApi = {
   getCurrentWeather: (params) =>
     axios.get(endpoints.getCurrentWeather, {
-      params: { ...params, appid: openWeatherKey },
+      params: { units: "metric", appid: openWeatherKey, ...params },
     }),
 };
