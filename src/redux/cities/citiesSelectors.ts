@@ -6,6 +6,28 @@ import { ICityItem, ICityWithWeatherItem } from "./citiesTypes";
 
 const getSelectedCities = (state: RootState) => state.cities.selectedCities;
 
+const getCityByIdWithWeather = createSelector(
+  [
+    getSelectedCities,
+    weatherSelectors.getWeatherByCities,
+    (_, cityId: number) => cityId,
+  ],
+  (
+    selectedCities: ICityItem[],
+    weatherByCities: IGetCurrentWeatherResponse[],
+    cityId
+  ): ICityWithWeatherItem | null => {
+    const city = selectedCities.find(({ id }) => id === cityId);
+    if (!city) return null;
+
+    const weather = weatherByCities.find(({ id }) => id === cityId);
+    return {
+      ...city,
+      weather: weather || null,
+    };
+  }
+);
+
 const getSelectedCitiesWithWeather = createSelector(
   [getSelectedCities, weatherSelectors.getWeatherByCities],
   (
@@ -37,6 +59,7 @@ const getSelectedCityIdsWithNoWeather = createSelector(
 
 const citiesSelectors = {
   getSelectedCities,
+  getCityByIdWithWeather,
   getSelectedCitiesWithWeather,
   getSelectedCityIdsWithNoWeather,
 };

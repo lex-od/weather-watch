@@ -1,10 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AxiosResponse } from "axios";
 import { api } from "services";
-import {
-  IGetCurrentWeatherParams,
-  IGetCurrentWeatherResponse,
-} from "services/api/types";
+import { IGetCurrentWeatherParams } from "services/api/types";
 import citiesSelectors from "redux/cities/citiesSelectors";
 import { showError } from "utils/notify";
 
@@ -27,20 +23,15 @@ const getCurrentWeatherBySelectedCities = createAsyncThunk(
     const noWeatherIds: number[] =
       citiesSelectors.getSelectedCityIdsWithNoWeather(getState());
 
-    const allResults = await Promise.allSettled(
-      noWeatherIds.map((id) => api.getCurrentWeather({ id }))
-    );
-
-    const successResults = allResults.filter(
-      ({ status }) => status === "fulfilled"
-    ) as TWeatherSuccessResults;
-
-    return successResults.map(({ value }) => value.data);
-
-    // Helper type
-    type TWeatherSuccessResults = PromiseFulfilledResult<
-      AxiosResponse<IGetCurrentWeatherResponse, any>
-    >[];
+    try {
+      const results = await Promise.all(
+        noWeatherIds.map((id) => api.getCurrentWeather({ id }))
+      );
+      return results.map(({ data }) => data);
+    } catch (error) {
+      showError(error);
+      throw error;
+    }
   }
 );
 
