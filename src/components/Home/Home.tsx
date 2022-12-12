@@ -5,6 +5,7 @@ import weatherThunks from "redux/weather/weatherThunks";
 import citiesSls from "redux/cities/citiesSelectors";
 import { WeatherCard } from "./WeatherCard/WeatherCard";
 import { useEffect } from "react";
+import weatherSls from "redux/weather/weatherSelectors";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -12,6 +13,7 @@ export const Home = () => {
   const citiesWithWeather = useAppSelector(
     citiesSls.getSelectedCitiesWithWeather
   );
+  const loading = useAppSelector(weatherSls.getWeatherAllLoading);
 
   useEffect(() => {
     dispatch(weatherThunks.getCurrentWeatherBySelectedCities());
