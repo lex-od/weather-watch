@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
+import { Typography } from "@mui/material";
 
 import css from "./Home.module.scss";
 import { useAppDispatch, useAppSelector } from "hooks";
@@ -38,22 +39,26 @@ export const Home = () => {
   }, [dispatch, cities]);
 
   return (
-    <Box>
-      <Grid container spacing={3} sx={{ position: "relative" }}>
-        {loading && (
-          <div className={css.loadingBackdrop}>
-            <CircularProgress size={48} />
-          </div>
-        )}
+    <Box sx={{ padding: "15px 0" }}>
+      <Typography variant="h2" sx={{ textAlign: "center", mb: "50px" }}>
+        Weather watch
+      </Typography>
 
+      <Grid container spacing={3} sx={{ mb: "50px", position: "relative" }}>
         {citiesWithWeather.map((item) => (
           <Grid key={item.id} item xs={4}>
             <WeatherCard item={item} />
           </Grid>
         ))}
+
+        {loading && (
+          <div className={css.loadingBackdrop}>
+            <CircularProgress size={48} />
+          </div>
+        )}
       </Grid>
 
-      <Box sx={{ textAlign: "center", padding: "50px 0" }}>
+      <Box sx={{ textAlign: "center" }}>
         <Button
           variant="outlined"
           size="large"
