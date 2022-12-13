@@ -1,17 +1,18 @@
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
+
 import css from "./Home.module.scss";
 import { useAppDispatch, useAppSelector } from "hooks";
 import weatherThunks from "redux/weather/weatherThunks";
 import citiesSls from "redux/cities/citiesSelectors";
-import { WeatherCard } from "./WeatherCard/WeatherCard";
-import { useEffect, useState } from "react";
 import weatherSls from "redux/weather/weatherSelectors";
-import { AddCityDialog } from "components/AddCityDialog/AddCityDialog";
 import { ICityItem } from "redux/cities/citiesTypes";
 import { addNewCity } from "redux/cities/citiesSlice";
+import { WeatherCard } from "./WeatherCard/WeatherCard";
+import { AddCityDialog } from "./AddCityDialog/AddCityDialog";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +20,7 @@ export const Home = () => {
   const citiesWithWeather = useAppSelector(
     citiesSls.getSelectedCitiesWithWeather
   );
+  const remainingCities = useAppSelector(citiesSls.getRemainingAvailableCities);
   const loading = useAppSelector(weatherSls.getWeatherAllLoading);
 
   const [isAddModal, setIsAddModal] = useState(false);
@@ -30,6 +32,7 @@ export const Home = () => {
     closeAddModal();
   };
 
+  // Получаем только отсутствующую погоду
   useEffect(() => {
     dispatch(weatherThunks.getCurrentWeatherBySelectedCities());
   }, [dispatch, cities]);
@@ -61,8 +64,9 @@ export const Home = () => {
       </Box>
 
       <AddCityDialog
-        open={isAddModal}
+        cities={remainingCities}
         onSubmit={handleAddCitySubmit}
+        open={isAddModal}
         onClose={closeAddModal}
       />
     </Box>

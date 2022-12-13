@@ -5,10 +5,11 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Typography from "@mui/material/Typography";
+
 import css from "./WeatherCard.module.scss";
 import { ICityWithWeatherItem } from "redux/cities/citiesTypes";
-import { formatTemperature } from "utils";
 import weatherThunks from "redux/weather/weatherThunks";
+import { formatTemperature } from "utils";
 import { useAppDispatch } from "hooks";
 
 interface IWeatherCard {

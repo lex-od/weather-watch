@@ -2,6 +2,7 @@ import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "redux/store";
 import weatherSelectors from "redux/weather/weatherSelectors";
 import { IGetCurrentWeatherResponse } from "services/api/types";
+import mockCities from "json/mockCities.json";
 import { ICityItem, ICityWithWeatherItem } from "./citiesTypes";
 
 const getSelectedCities = (state: RootState) => state.cities.selectedCities;
@@ -57,10 +58,20 @@ const getSelectedCityIdsWithNoWeather = createSelector(
   }
 );
 
+const getRemainingAvailableCities = createSelector(
+  [getSelectedCities],
+  (selectedCities: ICityItem[]): ICityItem[] => {
+    return mockCities.filter((city) =>
+      selectedCities.every(({ id }) => id !== city.id)
+    );
+  }
+);
+
 const citiesSelectors = {
   getSelectedCities,
   getCityByIdWithWeather,
   getSelectedCitiesWithWeather,
   getSelectedCityIdsWithNoWeather,
+  getRemainingAvailableCities,
 };
 export default citiesSelectors;
