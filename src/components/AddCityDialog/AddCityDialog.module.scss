@@ -1,0 +1,15 @@
+.cityList {
+  &::-webkit-scrollbar {
+    width: 5px;
+    position: relative;
+  }
+
+  &::-webkit-scrollbar-button {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: #b6b6b6;
+  }
+}

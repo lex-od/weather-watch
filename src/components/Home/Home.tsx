@@ -1,16 +1,17 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Link as RouterLink } from "react-router-dom";
-import Link from "@mui/material/Link";
+import Button from "@mui/material/Button";
 import css from "./Home.module.scss";
 import { useAppDispatch, useAppSelector } from "hooks";
 import weatherThunks from "redux/weather/weatherThunks";
 import citiesSls from "redux/cities/citiesSelectors";
 import { WeatherCard } from "./WeatherCard/WeatherCard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import weatherSls from "redux/weather/weatherSelectors";
-import { routes } from "routes/routes";
+import { AddCityDialog } from "components/AddCityDialog/AddCityDialog";
+import { ICityItem } from "redux/cities/citiesTypes";
+import { addNewCity } from "redux/cities/citiesSlice";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +20,15 @@ export const Home = () => {
     citiesSls.getSelectedCitiesWithWeather
   );
   const loading = useAppSelector(weatherSls.getWeatherAllLoading);
+
+  const [isAddModal, setIsAddModal] = useState(false);
+
+  const closeAddModal = () => setIsAddModal(false);
+
+  const handleAddCitySubmit = (newCity: ICityItem) => {
+    dispatch(addNewCity({ newCity }));
+    closeAddModal();
+  };
 
   useEffect(() => {
     dispatch(weatherThunks.getCurrentWeatherBySelectedCities());
@@ -41,16 +51,33 @@ export const Home = () => {
       </Grid>
 
       <Box sx={{ textAlign: "center", padding: "50px 0" }}>
-        <Link
-          component={RouterLink}
-          to={routes.addCity}
-          variant="button"
-          underline="none"
-          className={css.addCityLink}
+        <Button
+          variant="outlined"
+          size="large"
+          onClick={() => setIsAddModal(true)}
         >
           Add city
-        </Link>
+        </Button>
       </Box>
+
+      <AddCityDialog
+        open={isAddModal}
+        onSubmit={handleAddCitySubmit}
+        onClose={closeAddModal}
+      />
     </Box>
   );
 };
+
+// import { Link as RouterLink } from "react-router-dom";
+// import Link from "@mui/material/Link";
+
+// <Link
+//   component={RouterLink}
+//   to={routes.addCity}
+//   variant="button"
+//   underline="none"
+//   className={css.addCityLink}
+// >
+//   Add city
+// </Link>;
