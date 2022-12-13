@@ -5,12 +5,16 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Typography from "@mui/material/Typography";
+import DeleteIcon from "@mui/icons-material/Delete";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import { Button } from "@mui/material";
 
 import css from "./WeatherCard.module.scss";
 import { ICityWithWeatherItem } from "redux/cities/citiesTypes";
 import weatherThunks from "redux/weather/weatherThunks";
 import { formatTemperature } from "utils";
 import { useAppDispatch } from "hooks";
+import { deleteCity } from "redux/cities/citiesSlice";
 
 interface IWeatherCard {
   item: ICityWithWeatherItem;
@@ -35,6 +39,10 @@ export const WeatherCard: FC<IWeatherCard> = ({ item }) => {
     // Не обрабатываем ошибку, т. к. при использовании
     // createAsyncThunk возвращается всегда "успешный" промис
     setLoading(false);
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteCity({ cityId: item.id }));
   };
 
   return (
@@ -73,13 +81,21 @@ export const WeatherCard: FC<IWeatherCard> = ({ item }) => {
 
       <CardActions>
         <LoadingButton
-          loading={loading}
-          size="small"
-          sx={{ width: "100%" }}
           onClick={handleUpdate}
+          loading={loading}
+          startIcon={<RefreshIcon />}
+          sx={{ width: "50%" }}
         >
           Update
         </LoadingButton>
+
+        <Button
+          onClick={handleDelete}
+          startIcon={<DeleteIcon />}
+          sx={{ width: "50%" }}
+        >
+          Delete
+        </Button>
       </CardActions>
     </Card>
   );

@@ -21,10 +21,9 @@ export const citiesSlice = createSlice({
       const { newCity } = action.payload;
 
       const isExists = state.selectedCities.some(({ id }) => id === newCity.id);
-
       if (isExists) return;
 
-      state.selectedCities = [newCity, ...state.selectedCities];
+      state.selectedCities.push(newCity);
     },
 
     deleteCity: (state, action: PayloadAction<IDeleteCityPayload>) => {

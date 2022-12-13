@@ -38,7 +38,7 @@ export const AddCityDialog: FC<IAddCityDialog> = ({
       <DialogTitle>Add new city</DialogTitle>
 
       <DialogContent sx={{ width: 400 }}>
-        <List sx={{ height: 350, overflowY: "auto" }} className={css.cityList}>
+        <List sx={{ height: 300, overflowY: "auto" }} className={css.cityList}>
           {cities.map((city) => (
             <ListItemButton
               key={city.id}
