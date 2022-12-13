@@ -12,6 +12,7 @@ function App() {
         <Route path={routes.home} element={<Layout />}>
           <Route index element={<Home />} />
           <Route path={routes.details} element={<div>Details</div>} />
+          <Route path={routes.addCity} element={<div>Add city</div>} />
 
           <Route path="*" element={<Navigate to={routes.home} />} />
         </Route>

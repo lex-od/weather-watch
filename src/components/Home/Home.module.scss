@@ -1,0 +1,17 @@
+@use "styles/shared.scss";
+
+.loadingBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  backdrop-filter: blur(4px);
+}
+
+a.addCityLink {
+  @extend %link-button;
+}
