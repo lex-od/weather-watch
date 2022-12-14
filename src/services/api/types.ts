@@ -60,9 +60,6 @@ export interface IGetCurrentWeatherResponse {
     deg: number;
     gust: number;
   };
-  rain: {
-    "1h": number;
-  };
   clouds: {
     all: number;
   };
