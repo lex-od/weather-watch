@@ -108,4 +108,17 @@ describe("AddCityDialog component", () => {
     userEvent.click(screen.getByText("Cancel"));
     expect(handleClose).toHaveBeenCalled();
   });
+
+  it("Dialog snapshot", () => {
+    const { container } = render(
+      <AddCityDialog
+        cities={cities}
+        onSubmit={handleSubmit}
+        open
+        onClose={handleClose}
+      />
+    );
+
+    expect(container).toMatchSnapshot();
+  });
 });

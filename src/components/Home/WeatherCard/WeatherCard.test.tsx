@@ -1,10 +1,16 @@
-import { render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import * as router from "react-router-dom";
+import * as redux from "react-redux";
+import weatherThunks from "redux/weather/weatherThunks";
+import * as citiesActs from "redux/cities/citiesSlice";
 
-import { store } from "redux/store";
 import { ICityWithWeatherItem } from "redux/cities/citiesTypes";
 import { WeatherCard } from "./WeatherCard";
+
+jest.mock("react-redux");
+jest.mock("react-router-dom");
+const mockedDispatch = jest.spyOn(redux, "useDispatch");
+const mockedNavigate = jest.spyOn(router, "useNavigate");
 
 const city: ICityWithWeatherItem = {
   id: 698740,
@@ -75,37 +81,68 @@ const cityWithWeather: ICityWithWeatherItem = {
 
 describe("WeatherCard component", () => {
   it("Card renders", () => {
-    render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <WeatherCard item={city} />
-        </BrowserRouter>
-      </Provider>
-    );
+    mockedDispatch.mockReturnValue(jest.fn());
+    mockedNavigate.mockReturnValue(jest.fn());
+
+    render(<WeatherCard item={city} />);
+
     expect(screen.getByRole("heading")).toBeInTheDocument();
     expect(screen.getByText("Update")).toBeInTheDocument();
+    expect(screen.getByText("Delete")).toBeInTheDocument();
   });
 
   it("Card renders with weather", () => {
-    render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <WeatherCard item={cityWithWeather} />
-        </BrowserRouter>
-      </Provider>
-    );
+    mockedDispatch.mockReturnValue(jest.fn());
+    mockedNavigate.mockReturnValue(jest.fn());
+
+    render(<WeatherCard item={cityWithWeather} />);
+
     expect(screen.getByRole("img")).toBeInTheDocument();
-    expect(screen.getByText(/Wind/)).toBeInTheDocument();
+    expect(screen.getByText(/Wind:/)).toBeInTheDocument();
+    expect(screen.getByText("Update")).toBeInTheDocument();
+    expect(screen.getByText("Delete")).toBeInTheDocument();
+  });
+
+  it("Should dispatch actions", async () => {
+    // Mock return values
+    const dispatch = jest.fn();
+    mockedDispatch.mockReturnValue(dispatch);
+    const navigate = jest.fn();
+    mockedNavigate.mockReturnValue(navigate);
+
+    // Spy actions
+    const mockedGetCurrentWeather = jest.spyOn(
+      weatherThunks,
+      "getCurrentWeather"
+    );
+    const mockedDeleteCity = jest.spyOn(citiesActs, "deleteCity");
+
+    render(<WeatherCard item={cityWithWeather} />);
+
+    // Update
+    fireEvent.click(screen.getByText("Update"));
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledTimes(1);
+    });
+    expect(mockedGetCurrentWeather).toHaveBeenCalledWith({ id: 698740 });
+
+    // Delete
+    fireEvent.click(screen.getByText("Delete"));
+    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(mockedDeleteCity).toHaveBeenCalledWith({ cityId: 698740 });
+
+    // Navigate to details
+    fireEvent.click(screen.getByRole("heading"));
+    expect(navigate).toHaveBeenCalledTimes(1);
+    expect(navigate).toHaveBeenCalledWith("/details/698740");
   });
 
   it("Card snapshot", () => {
-    const { container } = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <WeatherCard item={cityWithWeather} />
-        </BrowserRouter>
-      </Provider>
-    );
+    mockedDispatch.mockReturnValue(jest.fn());
+    mockedNavigate.mockReturnValue(jest.fn());
+
+    const { container } = render(<WeatherCard item={cityWithWeather} />);
+
     expect(container).toMatchSnapshot();
   });
 });
