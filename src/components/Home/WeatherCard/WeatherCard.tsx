@@ -65,7 +65,7 @@ export const WeatherCard: FC<IWeatherCard> = ({ item }) => {
         {weather && (
           <>
             <Typography sx={{ mb: 1.5 }} variant="h5" component="p">
-              {formatTemperature(weather.main.temp)}, {shortDescription}
+              {formatTemperature(weather.main.temp)}°, {shortDescription}
             </Typography>
 
             <Typography

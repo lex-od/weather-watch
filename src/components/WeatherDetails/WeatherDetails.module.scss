@@ -1,0 +1,13 @@
+@use "styles/shared";
+
+.loadingBox {
+  min-height: 290px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.backToHome {
+  @extend %link-button;
+}

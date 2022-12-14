@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+
+import { IGetCurrentWeatherResponse } from "services/api/types";
 import { IWeatherState } from "./weatherTypes";
 import weatherThunks from "./weatherThunks";
-import { IGetCurrentWeatherResponse } from "services/api/types";
 
 const initialState: IWeatherState = {
   weatherByCities: [],

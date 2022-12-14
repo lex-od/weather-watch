@@ -1,8 +1,9 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "redux/store";
-import weatherSelectors from "redux/weather/weatherSelectors";
+
 import { IGetCurrentWeatherResponse } from "services/api/types";
 import mockCities from "json/mockCities.json";
+import weatherSelectors from "redux/weather/weatherSelectors";
 import { ICityItem, ICityWithWeatherItem } from "./citiesTypes";
 
 const getSelectedCities = (state: RootState) => state.cities.selectedCities;

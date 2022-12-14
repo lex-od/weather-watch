@@ -77,16 +77,3 @@ export const Home = () => {
     </Box>
   );
 };
-
-// import { Link as RouterLink } from "react-router-dom";
-// import Link from "@mui/material/Link";
-
-// <Link
-//   component={RouterLink}
-//   to={routes.addCity}
-//   variant="button"
-//   underline="none"
-//   className={css.addCityLink}
-// >
-//   Add city
-// </Link>;
