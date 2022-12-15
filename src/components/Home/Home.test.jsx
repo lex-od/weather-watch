@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import * as redux from "react-redux";
 import * as router from "react-router-dom";
 import weatherThunks from "redux/weather/weatherThunks";
