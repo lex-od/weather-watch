@@ -35,9 +35,8 @@ export const WeatherCard: FC<IWeatherCard> = ({ item }) => {
 
   const handleUpdate = async () => {
     setLoading(true);
+    // createAsyncThunk => always resolved promise
     await dispatch(weatherThunks.getCurrentWeather({ id: item.id }));
-    // Не обрабатываем ошибку, т. к. при использовании
-    // createAsyncThunk возвращается всегда "успешный" промис
     setLoading(false);
   };
 

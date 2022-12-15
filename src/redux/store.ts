@@ -19,8 +19,11 @@ const persistConfig = {
   whitelist: ["cities"],
 };
 
+// Correct types infering - outside configureStore only
+const reducer = persistReducer(persistConfig, rootReducer);
+
 export const store = configureStore({
-  reducer: persistReducer(persistConfig, rootReducer),
+  reducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -32,8 +35,7 @@ export const store = configureStore({
 export const persistor = persistStore(store);
 
 // 📌 Types
-
 // Infer the `RootState` and `AppDispatch` types from the store itself
+
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;

@@ -4,6 +4,7 @@ import { api } from "services";
 import { IGetCurrentWeatherParams } from "services/api/types";
 import { showError } from "utils";
 import citiesSelectors from "redux/cities/citiesSelectors";
+import { RootState } from "redux/store";
 
 const getCurrentWeather = createAsyncThunk(
   "weather/getCurrentWeather",
@@ -21,8 +22,9 @@ const getCurrentWeather = createAsyncThunk(
 const getCurrentWeatherBySelectedCities = createAsyncThunk(
   "weather/getCurrentWeatherBySelectedCities",
   async (_, { getState }) => {
-    const noWeatherIds: number[] =
-      citiesSelectors.getSelectedCityIdsWithNoWeather(getState());
+    const noWeatherIds = citiesSelectors.getSelectedCityIdsWithNoWeather(
+      getState() as RootState
+    );
 
     try {
       const results = await Promise.all(

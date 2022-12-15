@@ -37,7 +37,7 @@ export const WeatherDetails = () => {
         setLoading(false);
         return;
       }
-      // createAsyncThunk => всегда "успешный" промис
+      // createAsyncThunk => always resolved promise
       await dispatch(weatherThunks.getCurrentWeather({ id: cityIdNum }));
       setLoading(false);
     })();

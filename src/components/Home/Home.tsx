@@ -33,7 +33,7 @@ export const Home = () => {
     closeAddModal();
   };
 
-  // Получаем только отсутствующую погоду
+  // Get only missing weather
   useEffect(() => {
     dispatch(weatherThunks.getCurrentWeatherBySelectedCities());
   }, [dispatch, cities]);

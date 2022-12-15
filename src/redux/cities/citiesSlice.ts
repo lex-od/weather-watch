@@ -9,7 +9,7 @@ import {
 } from "./citiesTypes";
 
 const initialState: ICitiesState = {
-  // Начальные города
+  // Init by Kyiv, Odessa, Dnipro from json
   selectedCities: [mockCities[4], mockCities[7], mockCities[1]],
 };
 
