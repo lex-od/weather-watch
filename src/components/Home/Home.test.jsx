@@ -161,4 +161,14 @@ describe("Home component", () => {
     expect(mockDispatch).toHaveBeenCalledTimes(2);
     expect(spyAddNewCity).toHaveBeenCalledWith({ newCity: cherkasyCity });
   });
+
+  it("Home snapshot", () => {
+    spyUseDispatch.mockReturnValue(jest.fn());
+    spyUseSelector.mockImplementation((cb) => cb(state));
+    spyNavigate.mockReturnValue(jest.fn());
+
+    const { container } = render(<Home />);
+
+    expect(container).toMatchSnapshot();
+  });
 });

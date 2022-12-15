@@ -32,14 +32,15 @@ export const WeatherDetails = () => {
   const longDescription = weather?.weather[0]?.description;
 
   useEffect(() => {
-    if (!isCityIdValid) {
+    (async () => {
+      if (!isCityIdValid) {
+        setLoading(false);
+        return;
+      }
+      // createAsyncThunk => всегда "успешный" промис
+      await dispatch(weatherThunks.getCurrentWeather({ id: cityIdNum }));
       setLoading(false);
-      return;
-    }
-    // createAsyncThunk => всегда "успешный" промис
-    dispatch(weatherThunks.getCurrentWeather({ id: cityIdNum })).then(() =>
-      setLoading(false)
-    );
+    })();
   }, [dispatch, cityIdNum, isCityIdValid]);
 
   return (
